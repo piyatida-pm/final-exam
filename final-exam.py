@@ -15,14 +15,16 @@ class Customer(Person):
         return 
     
 class Driver(Person):
-    def __init__(self, name, vehicle):
+    def __init__(self, name, vehicle, driver, item):
         super().__init__(name)
         self.name = name
         self.vehicle = vehicle
+        self.driver = driver
+        self.item = item
     
     def deliver(self,order):
-        print(f"{self.name}  is delivering to {self.name} using {self.vehicle}")
-        order = "delivered"
+        print(f"{self.driver} is delivering {self.item} to {self.name} using {self.vehicle}.")
+        self.order = order
 
 class DeliveryOrder:
     def __init__(self,customer,item,driver,status= "preparing"):
@@ -40,6 +42,13 @@ class DeliveryOrder:
         print(f"Customer: {self.customer}")
         print(f"Status: {self.status}")
         print(f"Driver: {self.driver}")
+        print("")
+    
+    def final(self,status = "delivered"):
+        self.status = status
+        # print("")
+        #print("Final Status:")
+        print(f"Order for {self.item} → {self.status}")
 
 cos1 = Person("Alice")
 cos2 = Person("Bob")     
@@ -51,5 +60,14 @@ ordersum = DeliveryOrder("Alice","Laptop","David")
 ordersum.summary()
 ordersum = DeliveryOrder("Bob","Headphones","David")
 ordersum.summary()
-dri1 = Driver("Alice","motorcycle")
+dri1 = Driver("Alice","motorcycle","David","Laptop")
 dri1.deliver("Headphones")
+dri2 = Driver("Bob","motorcycle","David","Headphones")
+dri2.deliver("Headphones")
+print("")
+
+print("Final Status:")
+fi1 = DeliveryOrder("Alice","Laptop","David")
+fi1.final()
+fi2 = DeliveryOrder("Bob","Headphones","David")
+fi2.final()
